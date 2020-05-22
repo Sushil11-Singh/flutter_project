@@ -11,13 +11,16 @@ import com.example.productapp.adapter.ProductListAdapter
 import com.example.productapp.modal.DatabaseClient
 import com.example.productapp.modal.Product
 import kotlinx.android.synthetic.main.activity_product_list.*
+import kotlinx.android.synthetic.main.activity_update_product.*
 
 class ProductListActivity : AppCompatActivity() {
     private var adapter: ProductListAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_list)
-
+        back.setOnClickListener {
+            finish()
+        }
         initRecyclerView()
         getAllProductList()
     }

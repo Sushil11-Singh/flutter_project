@@ -1,8 +1,8 @@
 package com.example.productapp.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +15,6 @@ import com.example.productapp.R
 import com.example.productapp.activity.UpdateProductActivity
 import com.example.productapp.modal.Product
 import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
-import java.io.File
 
 
 class ProductListAdapter(val productList: List<Product>, var context: Context) :
@@ -39,6 +37,8 @@ class ProductListAdapter(val productList: List<Product>, var context: Context) :
             intent.putExtra("PRODUCT", product)
 
             context.startActivity(intent)
+            (context as Activity).finish()
+
 
         }
 

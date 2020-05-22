@@ -43,9 +43,13 @@ class UpdateProductActivity : AppCompatActivity() {
         btnUpdateProduct.setOnClickListener {
             upDateProduct(product)
         }
-
+        imageInByte = product.getProductPhoto()
         btnDelete.setOnClickListener {
             deleteProduct(product)
+        }
+
+        back_update.setOnClickListener {
+            finish()
         }
 
         layoutUpdate_capture.setOnClickListener {
@@ -175,7 +179,7 @@ class UpdateProductActivity : AppCompatActivity() {
             return;
         }
 
-        imageInByte = product.getProductPhoto()
+
 
         if (ivProductUpdateImage.drawable == null) {
             Toast.makeText(this, "Please capture image", Toast.LENGTH_SHORT).show()

@@ -192,6 +192,14 @@ class ProductHomeActivity : AppCompatActivity() {
                 super.onPostExecute(result)
                 // ...
                 Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+                etProductName.setText("")
+                etProductDesc.setText("")
+                etProductRegular.setText("")
+                etProductSalePrice.setText("")
+                etProductColor.setText("")
+                etProductStore.setText("")
+                ivProductImage.setImageResource(android.R.color.transparent)
+
             }
         }
 
