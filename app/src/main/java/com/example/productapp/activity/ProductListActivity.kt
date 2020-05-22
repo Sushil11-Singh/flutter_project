@@ -1,0 +1,70 @@
+package com.example.productapp.activity
+
+import android.os.AsyncTask
+import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.productapp.R
+import com.example.productapp.adapter.ProductListAdapter
+import com.example.productapp.modal.DatabaseClient
+import com.example.productapp.modal.Product
+import kotlinx.android.synthetic.main.activity_product_list.*
+
+class ProductListActivity : AppCompatActivity() {
+    private var adapter: ProductListAdapter? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_product_list)
+
+        initRecyclerView()
+        getAllProductList()
+    }
+
+    private fun getAllProductList() {
+        class GetAllProductListTask() : AsyncTask<Void, Void, List<Product>>() {
+
+            override fun doInBackground(vararg params: Void?): List<Product>? {
+                val taskList: List<Product> = DatabaseClient
+                    .getInstance(applicationContext)
+                    .appDatabase
+                    .productDao()
+                    .getAll() as List<Product>
+
+                return taskList
+                // ...
+            }
+
+            override fun onPreExecute() {
+                super.onPreExecute()
+                // ...
+            }
+
+            override fun onPostExecute(productList:List<Product>) {
+                super.onPostExecute(productList)
+                // ...
+                initRecyclerView()
+                if (productList!=null && productList.size>0) {
+                    
+                    adapter = ProductListAdapter(productList,this@ProductListActivity)
+                    rv_productList.adapter = adapter
+                    adapter!!.notifyDataSetChanged()
+                } else {
+                    Toast.makeText(getApplicationContext(), "Product is not available", Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+        }
+
+        val st = GetAllProductListTask()
+        st.execute()
+    }
+
+    private fun initRecyclerView() {
+        rv_productList.setHasFixedSize(true)
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
+        rv_productList.layoutManager = layoutManager
+    }
+}
